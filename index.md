@@ -4,13 +4,14 @@ title: FPGA VGA Driver Project
 tags: fpga vga verilog
 categories: demo
 ---
+Tamer Zraiq
 
-Add a short welcome message or introduction here. Aim to get the viewer interested in what follows! Guideline: 1 or 2 sentences.
-The following document describes the process and the technical side of creating a FPGA VGA Driver Program.
+The following document consists of defining the process of designing and implementing a VGA driver on an FPGA. The project demonstrates some of the concepts of digital design using Verilog language and the Vivado environment. Starting with provided templates (colour stripes and colour cycle), I modified these templates to enhance the design, including simulation and synthesis to ensure functionality. The document outlines the process of how a VGA controller operates and how to implement various designs.
+
 
 ## **Template VGA Design**
 ### **Project Set-Up**
-Summarise the project set-up and design flow. Include a screenshot of your own set-up, for example see the image of my Project Summary window below. Guideline 1 short paragraph.
+The project is set up in Vivado to use the Artix-7 FPGA (xc7a35tcpg236-1). VGATop is the top module that integrates various submodules for clocking, VGA synchronization to manage synchronization signals and the ColourStripes module for generating dynamic color patterns. The design sources include VGATop.v, VGASync.v, and VGAColourStripes.v, while the simulation source has a testbench module. The synthesis, simulation and implementation results confirm that the bitstream was successfully generated, as shown in the Project Summary screenshot.
 
 <img src="https://raw.githubusercontent.com/melgineer/fpga-vga-verilog/main/docs/assets/images/VGAPrjSum.png">
 ### **Template Code**
