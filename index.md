@@ -17,27 +17,41 @@ The project is set up in Vivado to use the Artix-7 FPGA (xc7a35tcpg236-1). VGATo
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/projectsummary.png">
 
 ### **Template Code**
-Outline the structure and design of the Verilog code templates you were given. What do they do? Include reference to how a VGA interface works. Guideline: 2/3 short paragraphs, consider including screenshot(s).
-The template code generates VGA signals that are compatible with a standard VGA display. These modules outline the form of a simple VGA controller. 
+The template code generates VGA signals that are compatible with a standard VGA display. These modules outline the form of a simple VGA controller. A VGA interface operates by driving red, green, and blue signals along with synchronization signals to control the display of pixels. The VGATop.v module ties these components together, providing a clocking mechanism through clk_wiz_0 to ensure proper timing.
 
 #### **VGASync.v Code**
 The VGA synchronization module (VGASync.v) is used to generate horizontal (hsync) and vertical sync (vsync) signals based on a timing specification. It also calculates the active video region (vid_on), which determines the pixel output.
 
-##### Parameters:
+##### **Parameters**:
 The following parameters specify the timing values required for VGA synchronization. HDISP and VDISP define the resolution of the display area. HFP/VFP, HPW/VPW, and HLIM/VLIM represent front porch, pulse width, and total line/frame limits.
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/projectsummary.png">
 
-##### Horizontal and Vertical Counter:
+##### **Horizontal and Vertical Counter**:
 The following code increments hcount and vcount in an always block to track pixel positions in horizontal and vertical frames. The counter goes through the total line(HLIM)/frame limits(VLIM). hcount resets after reaching the horizontal limit, then triggers vcount to increment vertical synchronization. 
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/projectsummary.png">
 
-##### Sync Signal Generation and Active Video Logic:
+##### **Sync Signal Generation and Active Video Logic**:
+hsync signal is active low during the horizontal pulse width, while vsync is active low during vertical pulse width. These signals represent the sync intervals for the display. The following code is used to synchronzie the display hardware process.
+The active video logic determines the region where the pixels are outputed. vid_on is high when the counters are in the active display area whcich is defined by the HDISP and VDISP.
+Assign statements are used to map row and col to the vcount and hcount. These outputs are used for pixel calculations for the other modules (ColourStripes.v).
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/projectsummary.png">
+
+#### **VGAColourStripes.v Code**
+The VGAColourStripes.v module generates RGB color patterns during the active video period to display on the screen.
+
+##### **Parameters**:
+The following parameters specify the timing values required for VGA synchronization. HDISP and VDISP define the resolution of the display area. HFP/VFP, HPW/VPW, and HLIM/VLIM represent front porch, pulse width, and total line/frame limits.
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/projectsummary.png">
+
+##### **Horizontal and Vertical Counter**:
+The following code increments hcount and vcount in an always block to track pixel positions in horizontal and vertical frames. The counter goes through the total line(HLIM)/frame limits(VLIM). hcount resets after reaching the horizontal limit, then triggers vcount to increment vertical synchronization. 
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/projectsummary.png">
+
+##### **Sync Signal Generation and Active Video Logic**:
 hsync signal is active low during the horizontal pulse width, while vsync is active low during vertical pulse width. These signals represent the sync intervals for the display. The following code is used to synchronzie the display hardware process.
 The active video logic determines the region where the pixels are outputed. vid_on is high when the counters are in the active display area whcich is defined by the HDISP and VDISP.
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/projectsummary.png">
 
-The VGAColourStripes.v module generates RGB color patterns during the active video period to display on the screen. 
-A VGA interface operates by driving red, green, and blue signals along with synchronization signals to control the display of pixels. The VGATop.v module ties these components together, providing a clocking mechanism through clk_wiz_0 to ensure proper timing.
 ### **Simulation**
 Explain the simulation process. Reference any important details, include a well-selected screenshot of the simulation. Guideline: 1/2 short paragraphs.
 ### **Synthesis**
