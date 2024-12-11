@@ -40,16 +40,15 @@ Assign statements are used to map row and col to the vcount and hcount. These ou
 The VGAColourStripes.v module generates RGB color patterns during the active video period to display on the screen.
 
 ##### **Parameters**:
-The following parameters specify the timing values required for VGA synchronization. HDISP and VDISP define the resolution of the display area. HFP/VFP, HPW/VPW, and HLIM/VLIM represent front porch, pulse width, and total line/frame limits.
+The following parameters configure how the counter behaves. COUNTER_WIDTH: Defines the bit width of the counter used in the module, default is 32 bits. COUNT_FROM: Defines the starting value of the counter. COUNT_TO: Defines the maximum count value of the counter (2^26 in this case). COUNT_RESET: Specifies the reset value for the counter (2^27 in this case).
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/projectsummary.png">
 
 ##### **Horizontal and Vertical Counter**:
-The following code increments hcount and vcount in an always block to track pixel positions in horizontal and vertical frames. The counter goes through the total line(HLIM)/frame limits(VLIM). hcount resets after reaching the horizontal limit, then triggers vcount to increment vertical synchronization. 
+
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/projectsummary.png">
 
 ##### **Sync Signal Generation and Active Video Logic**:
-hsync signal is active low during the horizontal pulse width, while vsync is active low during vertical pulse width. These signals represent the sync intervals for the display. The following code is used to synchronzie the display hardware process.
-The active video logic determines the region where the pixels are outputed. vid_on is high when the counters are in the active display area whcich is defined by the HDISP and VDISP.
+
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/projectsummary.png">
 
 ### **Simulation**
