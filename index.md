@@ -72,10 +72,12 @@ Generating a simulation was successful. A simulation validates how the module op
 ### **Synthesis**
 Synthesis operation is used to reflect the code into a hardware implementation. 
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/OGsynth.png">
+The diagram shows the connection between components of the design. It reresents the entire signal geenraton ieline. The clk_wiz_0 is a clock generation comonent that adjusts the clock signal to the required frequency (25MHz). The VGASync comonent generates hsync and vsync signals to control synchronization signals. Each of the VGA RGB colors are connected to 4 bit outut buffers.
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/synthsch.png">
 
 ### **Demonstration**
-Perhaps add a picture of your demo. Guideline: 1/2 sentences.
+The final result is a generated VGA signal that displays vertical coloured lines on the screen.
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/synthsch.png">
 
 ## **My VGA Design Edit**
 Introduce your own design idea. Consider how complex/achievabble this might be or otherwise. Reference any research you do online (use hyperlinks).
