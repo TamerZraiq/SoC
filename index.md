@@ -37,7 +37,7 @@ Assign statements are used to map row and col to the vcount and hcount. These ou
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/Sync2.png">
 
 #### **VGAColourStripes.v Code**
-The VGAColourStripes.v module generates RGB color patterns during the active video period to display on the screen.
+The VGAColourStripes.v module generates RGB color patterns during the active video period to display on the screen based on column positions, while also updating RGB values using a state machine.
 
 ##### **Parameters**:
 The following parameters configure how the counter behaves. **COUNTER_WIDTH** defines the bit width of the counter (32 bits). **COUNT_FROM** defines the initial value (0 bits) of the counter. **COUNT_TO** is the maximum count value of the counter (2^26 bits). **COUNT_RESET** is the reset value for the counter (2^27 bits).
@@ -54,11 +54,11 @@ In the always functoin, RGB values are assigned based on the col value which map
 * 400 - 479: magents, which is red + blue
 * 480 - 559: yellow, which is green + red
 * 560 - 639: white, which is the combination of RGB. 
-<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/projectsummary.png">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/Stripes1.png">
 
-##### **Sync Signal Generation and Active Video Logic**:
-
-<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/projectsummary.png">
+##### **RGB Output State Machine**:
+To update RGB values, we implement a state machine. The red_reg, green_reg, and blue_reg (RGB values) are updated based on the next color value (red_next, green_next, blue_next). So the `always@*` above calculates the next RGB value based on column position. While `always@(posedge clk, posedge rst` updates RGB values based on rising edge of the clock, and when reset signal is high it clears the color. 
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/Stripes2.png">
 
 ### **Simulation**
 Explain the simulation process. Reference any important details, include a well-selected screenshot of the simulation. Guideline: 1/2 short paragraphs.
