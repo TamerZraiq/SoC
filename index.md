@@ -22,30 +22,32 @@ The template code generates VGA signals that are compatible with a standard VGA 
 #### **VGASync.v Code**
 The VGA synchronization module (VGASync.v) is used to generate horizontal (hsync) and vertical sync (vsync) signals based on a timing specification. It also calculates the active video region (vid_on), which determines the pixel output.
 
-##### **Parameters**:
+#### **Parameters**:
 The following parameters specify the timing values required for VGA synchronization. HDISP and VDISP define the resolution of the display area. HFP/VFP, HPW/VPW, and HLIM/VLIM represent front porch, pulse width, and total line/frame limits.
 
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/SyncParam.png">
 
-##### **Horizontal and Vertical Counter**:
+#### **Horizontal and Vertical Counter**:
 The following code increments hcount and vcount in an always block to track pixel positions in horizontal and vertical frames. The counter goes through the total line(HLIM)/frame limits(VLIM). hcount resets after reaching the horizontal limit, then triggers vcount to increment vertical synchronization. 
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/Sync1.png">
 
-##### **Sync Signal Generation and Active Video Logic**:
+#### **Sync Signal Generation and Active Video Logic**:
 hsync signal is active low during the horizontal pulse width, while vsync is active low during vertical pulse width. These signals represent the sync intervals for the display. The following code is used to synchronzie the display hardware process.
 The active video logic determines the region where the pixels are outputed. vid_on is high when the counters are in the active display area whcich is defined by the HDISP and VDISP.
 Assign statements are used to map row and col to the vcount and hcount. These outputs are used for pixel calculations for the other modules (ColourStripes.v).
+
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/Sync2.png">
 
 #### **VGAColourStripes.v Code**
 The VGAColourStripes.v module generates RGB color patterns during the active video period to display on the screen based on column positions, while also updating RGB values using a state machine.
 
-##### **Parameters**:
+#### **Parameters**:
 The following parameters configure how the counter behaves. **COUNTER_WIDTH** defines the bit width of the counter (32 bits). **COUNT_FROM** defines the initial value (0 bits) of the counter. **COUNT_TO** is the maximum count value of the counter (2^26 bits). **COUNT_RESET** is the reset value for the counter (2^27 bits).
 The inputs include **clk** which is the clock signal driving the application, the **rst** signal to reset the RGB output, and **row** and **col** represent the coordinates of the current pixel processed. The outputs are red green and blue which are the RGB values for the current pixel at row and column.
+
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/StripesParam.png">
 
-##### **Generating Colour Stripes**:
+#### **Generating Colour Stripes**:
 In the always functoin, RGB values are assigned based on the col value which maps column ranges for specific colors. This is done using if else statements to assing different colors  based on the column number. Each time col becomes in a certain range, the red_next, green_next, and blue_next assign the correct color to the pixel. 
 * 0 - 79: black
 * 80 - 159: blue
@@ -68,7 +70,10 @@ Generating a simulation was successful. A simulation validates how the module op
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/sim1Strip1.png">
 
 ### **Synthesis**
-Describe the synthesis and implementation processes. Consider including 1/2 useful screenshot(s). Guideline: 1/2 short paragraphs.
+Synthesis operation is used to reflect the code into a hardware implementation. 
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/sim1Strip1.png">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/sim1Strip1.png">
+
 ### **Demonstration**
 Perhaps add a picture of your demo. Guideline: 1/2 sentences.
 
