@@ -64,8 +64,8 @@ To update RGB values, we implement a state machine. The red_reg, green_reg, and 
 ### **ColourStripes Simulation**
 Generating a simulation was successful. A simulation validates how the module operates ina VGA environment, ensuring that the color signals (red, green, blue) are generated for each column pixel accordingly. The major signals in the simulation were clk, rst, hsync, vsync, row, col, vid_on, and the color outputs RGB. The clock (_clk_) drives the system, each rising edge represents a VGA controller cycle, and with each rising edge it increments the col counter, as seen in the second simulation figure. The _rst_ signal initialises the system by clearing all outputs, it is then deasserted to allow VGA signal generation. The synchronization signals synchronize the display. _hsync_ is triggered at the end of each row to signal to next row. _vsync_ is triggered at the end of a frame signaling transition to the top left corner of the screen. _vid_on_ indictaes if the current pixel is on the visible screen (active display area), when it's high the RGBs are displayed. _col_ increments for each pixel in the row and resets when hsync is toggled. _row_ increments for each row and resets when vsync is toggled. RGB values are determined by col value to display the vertical stripes in the image. 
 
-<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/Stripes2.png">
-<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/Stripes2.png">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/simStrip1.png">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/sim1Strip1.png">
 
 ### **Synthesis**
 Describe the synthesis and implementation processes. Consider including 1/2 useful screenshot(s). Guideline: 1/2 short paragraphs.
