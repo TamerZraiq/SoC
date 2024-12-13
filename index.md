@@ -71,8 +71,8 @@ Generating a simulation was successful. A simulation validates how the module op
 
 ### **Synthesis**
 Synthesis operation is used to reflect the code into a hardware implementation. 
-<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/sim1Strip1.png">
-<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/sim1Strip1.png">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/OGsynth.png">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/synthsch.png">
 
 ### **Demonstration**
 Perhaps add a picture of your demo. Guideline: 1/2 sentences.
