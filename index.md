@@ -77,7 +77,7 @@ The diagram shows the connection between components of the design. It reresents 
 
 ### **Demonstration**
 The final result is a generated VGA signal that displays vertical coloured lines on the screen.
-<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/synthsch.png">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/StrResult.png">
 
 ## **My VGA Design Edit**
 Introduce your own design idea. Consider how complex/achievabble this might be or otherwise. Reference any research you do online (use hyperlinks).
