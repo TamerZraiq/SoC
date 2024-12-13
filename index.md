@@ -24,6 +24,7 @@ The VGA synchronization module (VGASync.v) is used to generate horizontal (hsync
 
 ##### **Parameters**:
 The following parameters specify the timing values required for VGA synchronization. HDISP and VDISP define the resolution of the display area. HFP/VFP, HPW/VPW, and HLIM/VLIM represent front porch, pulse width, and total line/frame limits.
+
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/SyncParam.png">
 
 ##### **Horizontal and Vertical Counter**:
@@ -57,11 +58,15 @@ In the always functoin, RGB values are assigned based on the col value which map
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/Stripes1.png">
 
 ##### **RGB Output State Machine**:
-To update RGB values, we implement a state machine. The red_reg, green_reg, and blue_reg (RGB values) are updated based on the next color value (red_next, green_next, blue_next). So the `always@*` above calculates the next RGB value based on column position. While `always@(posedge clk, posedge rst` updates RGB values based on rising edge of the clock, and when reset signal is high it clears the color. 
+To update RGB values, we implement a state machine. The red_reg, green_reg, and blue_reg (RGB values) are updated based on the next color value (red_next, green_next, blue_next). So the `always@*` above calculates the next RGB value based on column position. While `always@(posedge clk, posedge rst)` updates RGB values based on rising edge of the clock, and when reset signal is high it clears the color. 
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/Stripes2.png">
 
-### **Simulation**
-Explain the simulation process. Reference any important details, include a well-selected screenshot of the simulation. Guideline: 1/2 short paragraphs.
+### **ColourStripes Simulation**
+Generating a simulation was successful. A simulation validates how the module operates ina VGA environment, ensuring that the color signals (red, green, blue) are generated for each column pixel accordingly. The major signals in the simulation were clk, rst, hsync, vsync, row, col, vid_on, and the color outputs RGB. The clock (_clk_) drives the system, each rising edge represents a VGA controller cycle, and with each rising edge it increments the col counter, as seen in the second simulation figure. The _rst_ signal initialises the system by clearing all outputs, it is then deasserted to allow VGA signal generation. The synchronization signals synchronize the display. _hsync_ is triggered at the end of each row to signal to next row. _vsync_ is triggered at the end of a frame signaling transition to the top left corner of the screen. _vid_on_ indictaes if the current pixel is on the visible screen (active display area), when it's high the RGBs are displayed. _col_ increments for each pixel in the row and resets when hsync is toggled. _row_ increments for each row and resets when vsync is toggled. RGB values are determined by col value to display the vertical stripes in the image. 
+
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/Stripes2.png">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/Stripes2.png">
+
 ### **Synthesis**
 Describe the synthesis and implementation processes. Consider including 1/2 useful screenshot(s). Guideline: 1/2 short paragraphs.
 ### **Demonstration**
