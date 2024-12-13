@@ -7,7 +7,7 @@ categories: demo
 Tamer Zraiq
 
 The following document consists of defining the process of designing and implementing a VGA driver on an FPGA. The project demonstrates some of the concepts of digital design using Verilog language and the Vivado environment. 
-Starting with provided templates (colour stripes and colour cycle), I modified these templates to enhance the design, including simulation and synthesis to ensure functionality. The document outlines the process of how a VGA controller operates and how to implement various designs.
+Starting with provided templates (colour stripes and colour cycle) and with the help of ChatGPT to explain certain aspects of the application and error solve, I modified these templates to enhance the design, including simulation and synthesis to ensure functionality. The document outlines the process of how a VGA controller operates and how to implement various designs.
 
 
 ## **Template VGA Design : Given ColourStripes Template**
@@ -24,27 +24,36 @@ The VGA synchronization module (VGASync.v) is used to generate horizontal (hsync
 
 ##### **Parameters**:
 The following parameters specify the timing values required for VGA synchronization. HDISP and VDISP define the resolution of the display area. HFP/VFP, HPW/VPW, and HLIM/VLIM represent front porch, pulse width, and total line/frame limits.
-<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/projectsummary.png">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/SyncParam.png">
 
 ##### **Horizontal and Vertical Counter**:
 The following code increments hcount and vcount in an always block to track pixel positions in horizontal and vertical frames. The counter goes through the total line(HLIM)/frame limits(VLIM). hcount resets after reaching the horizontal limit, then triggers vcount to increment vertical synchronization. 
-<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/projectsummary.png">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/Sync1.png">
 
 ##### **Sync Signal Generation and Active Video Logic**:
 hsync signal is active low during the horizontal pulse width, while vsync is active low during vertical pulse width. These signals represent the sync intervals for the display. The following code is used to synchronzie the display hardware process.
 The active video logic determines the region where the pixels are outputed. vid_on is high when the counters are in the active display area whcich is defined by the HDISP and VDISP.
 Assign statements are used to map row and col to the vcount and hcount. These outputs are used for pixel calculations for the other modules (ColourStripes.v).
-<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/projectsummary.png">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/Sync2.png">
 
 #### **VGAColourStripes.v Code**
 The VGAColourStripes.v module generates RGB color patterns during the active video period to display on the screen.
 
 ##### **Parameters**:
-The following parameters configure how the counter behaves. COUNTER_WIDTH: Defines the bit width of the counter used in the module, default is 32 bits. COUNT_FROM: Defines the starting value of the counter. COUNT_TO: Defines the maximum count value of the counter (2^26 in this case). COUNT_RESET: Specifies the reset value for the counter (2^27 in this case).
-<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/projectsummary.png">
+The following parameters configure how the counter behaves. **COUNTER_WIDTH** defines the bit width of the counter (32 bits). **COUNT_FROM** defines the initial value (0 bits) of the counter. **COUNT_TO** is the maximum count value of the counter (2^26 bits). **COUNT_RESET** is the reset value for the counter (2^27 bits).
+The inputs include **clk** which is the clock signal driving the application, the **rst** signal to reset the RGB output, and **row** and **col** represent the coordinates of the current pixel processed. The outputs are red green and blue which are the RGB values for the current pixel at row and column.
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/StripesParam.png">
 
-##### **Horizontal and Vertical Counter**:
-
+##### **Generating Colour Stripes**:
+In the always functoin, RGB values are assigned based on the col value which maps column ranges for specific colors. This is done using if else statements to assing different colors  based on the column number. Each time col becomes in a certain range, the red_next, green_next, and blue_next assign the correct color to the pixel. 
+* 0 - 79: black
+* 80 - 159: blue
+* 160 - 239: green
+* 240 - 319: cyan, which is blue + green
+* 320 - 399: red
+* 400 - 479: magents, which is red + blue
+* 480 - 559: yellow, which is green + red
+* 560 - 639: white, which is the combination of RGB. 
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/projectsummary.png">
 
 ##### **Sync Signal Generation and Active Video Logic**:
