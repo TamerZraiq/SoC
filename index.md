@@ -86,9 +86,22 @@ The final result is a generated VGA signal that displays vertical coloured lines
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/StrResult.jpg">
 
 ## **My VGA Design Edit**
-Introduce your own design idea. Consider how complex/achievabble this might be or otherwise. Reference any research you do online (use hyperlinks).
+My roject brainstorming consisted of trying to find a fitting roject that would incorrate what I learned in the labs as well as trying to understand new concets. During the 4 sessions for this roject I have tried multile designs to understand how to maniulate the design. 
+My first attemt was maniulating rows and columns to get smaller squares with different colors. However, I couldnt fully comrehend how to control rows and columns.
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/StrResult.jpg">
+
+My second attemt was more successful. I used chatgt to exlain certain concets such as a moving design. I was able to maniulate square size as well as adding a vertical line that would move left to right. Every cycle the line does it would change colors and the color of the squares.
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/StrResult.jpg">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/StrResult.jpg">
+
+My third attemt consisted of trying a similar design to the start screen design. It roved more challenging and with little time I was not able to fulfil what I wanted to do. 
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/StrResult.jpg">
+
+On the final session I settled on building on what I had in the second attemt, which is my final VGA design.
+
 ### **Code Adaptation**
 Briefly show how you changed the template code to display a different image. Demonstrate your understanding. Guideline: 1-2 short paragraphs.
+
 ### **Simulation**
 Show how you simulated your own design. Are there any things to note? Demonstrate your understanding. Add a screenshot. Guideline: 1-2 short paragraphs.
 ### **Synthesis**
