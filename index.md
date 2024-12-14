@@ -98,7 +98,7 @@ My second attempt was more successful. I used chatgpt to explain certain concets
 My third attempt consisted of trying a similar design to the start screen design. It proved more challenging and with little time I was not able to fulfil what I wanted to do. 
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att3.jpg">
 
-On the final session I settled on building on what I had in the second attempt, which is my final VGA design.
+On the final session I settled on building on what I had in the second attempt, which is my final VGA design seen in the demonstration section below.
 
 ### **Code Adaptation**
 I combined both templates (color cycle and color stripes) and with the help of chatgt I was able to manipulate the code so that I control square size as well as changing color speed. 
@@ -122,27 +122,31 @@ To manipulate square size, I divided row and col values according to the square 
   <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att4.3.1.jpg">
   <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att4.3.2.jpg">
 
+### **Project Summary**
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/ps.png">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/Schematic.png">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/colourStripesSch.png">
+
 ### **Simulation**
-Show how you simulated your own design. Are there any things to note? Demonstrate your understanding. Add a screenshot. Guideline: 1-2 short paragraphs.
+Similar to the simulation process described in the Given Template section, the clock drives the logic while reset intializes the counters and register, pixels are put into squares based on row and col divisions, hsync and vsync control screen refresh and timing while the RGB values are displayed for current pixel. Unlike the ColourStries module where the vertical colors are stationary, in this case they are changing. As seen in the simulation figure below, the RGB outputs are 4 bit outputs that define the color for each pixel at their respective time. The RGB are changing periodically depending on the counter[30:25], the RGB signals remain constant for some duration before toggling a new value. This changes whenever the counter value is changed for slower or faster times. 
+
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/MySim.png">
+
 ### **Synthesis**
-Describe the synthesis & implementation outputs for your design, are there any differences to that of the original design? Guideline 1-2 short paragraphs.
+The synthesis schematic shows the components used to generate the VGA signals to display and to manage clock signals. The colorstripes module takes clk and rst as inputs for synchronization and outputs generated RGB signals. hsync and vsync similarly to the Synthesis section above; used as synchronization signals and outputs the vid_on to enable display. hcount and vcount are used to control the scan lines.
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/MySynth.png">
+
+The following visualizes the layout of logic blocks and routing on the FPGA after synthesis and implementation. The labels X0Y2, X1Y2, X0Y1, X1Y1, X0Y0, X1Y0 are FPGA regions where the logic is. The colored blocks are the modules in these regions.
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/MySynth2.png">
+
 ### **Demonstration**
-If you get your own design working on the Basys3 board, take a picture! Guideline: 1-2 sentences.
+My final design are squares moving across the screen by changing colors at defined speeds and square size.
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att4.3.1.jpg">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att4.3.2.jpg">
 
-## **More Markdown Basics**
-This is a paragraph. Add an empty line to start a new paragraph.
-
-Font can be emphasised as *Italic* or **Bold**.
-
-Code can be highlighted by using `backticks`.
-
-Hyperlinks look like this: [GitHub Help](https://help.github.com/).
-
-A bullet list can be rendered as follows:
-- vectors
-- algorithms
-- iterators
-
-Images can be added by uploading them to the repository in a /docs/assets/images folder, and then rendering using HTML via githubusercontent.com as shown in the example below.
-
-<img src="https://raw.githubusercontent.com/melgineer/fpga-vga-verilog/main/docs/assets/images/VGAPrjSrcs.png">
+## **Resources Used**
+* ChatGPT for clarification and code modifications.
+* [What is VGA? A Comprehensive Guide to Video Graphics Array](https://www.hp.com/us-en/shop/tech-takes/what-is-vga-comprehensive-guide-video-graphics-array)
+* [VGA Basics](https://faculty-web.msoe.edu/johnsontimoj/EE3921/files3921/vga_basics.pdf)
+* M. Lynch, “System On Chip Design and Verification”, Labs, ATU, Galway, 2024.
+* [Case Statement - Nandland](https://nandland.com/case-statement-2/)
