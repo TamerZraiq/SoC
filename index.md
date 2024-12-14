@@ -77,6 +77,10 @@ The diagram shows the connection between components of the design. It represents
 
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/synthsch.png">
 
+### **Imlementation**
+The schematic below reresents the process for generating a VGA signal with color outputs and synchronization. The clk_wiz_0 takes an input clock signal (clk) and outputs 25 MHz clock. The VGA Sync module uses the 25 MHz clock and reset signal to generate hsync and vsync. The ColourStripes module produces the RGB values.
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/OGschematic.png">
+
 ### **Demonstration**
 The final result is a generated VGA signal that displays vertical coloured lines on the screen.
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/StrResult.jpg">
