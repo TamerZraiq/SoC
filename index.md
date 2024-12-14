@@ -61,6 +61,7 @@ In the always functoin, RGB values are assigned based on the col value which map
 
 ##### **RGB Output State Machine**:
 To update RGB values, we implement a state machine. The red_reg, green_reg, and blue_reg (RGB values) are updated based on the next color value (red_next, green_next, blue_next). So the `always@*` above calculates the next RGB value based on column position. While `always@(posedge clk, posedge rst)` updates RGB values based on rising edge of the clock, and when reset signal is high it clears the color. 
+
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/Stripes2.png">
 
 ### **ColourStripes Simulation**
@@ -77,8 +78,8 @@ The diagram shows the connection between components of the design. It represents
 
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/synthsch.png">
 
-### **Imlementation**
-The schematic below reresents the process for generating a VGA signal with color outputs and synchronization. The clk_wiz_0 takes an input clock signal (clk) and outputs 25 MHz clock. The VGA Sync module uses the 25 MHz clock and reset signal to generate hsync and vsync. The ColourStripes module produces the RGB values.
+### **Implementation**
+The schematic below represents the process for generating a VGA signal with color outputs and synchronization. The clk_wiz_0 takes an input clock signal (clk) and outputs 25 MHz clock. The VGA Sync module uses the 25 MHz clock and reset signal to generate hsync and vsync. The ColourStripes module produces the RGB values.
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/OGschematic.png">
 
 ### **Demonstration**
@@ -86,21 +87,38 @@ The final result is a generated VGA signal that displays vertical coloured lines
 <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/StrResult.jpg">
 
 ## **My VGA Design Edit**
-My roject brainstorming consisted of trying to find a fitting roject that would incorrate what I learned in the labs as well as trying to understand new concets. During the 4 sessions for this roject I have tried multile designs to understand how to maniulate the design. 
-My first attemt was maniulating rows and columns to get smaller squares with different colors. However, I couldnt fully comrehend how to control rows and columns.
-<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/StrResult.jpg">
+The brainstorming process consisted of trying to find a fitting project that would incorprate what I learned in the labs as well as trying to understand new concepts. During the 4 sessions for this project I have tried multiple designs to understand how to manipulate the design. 
+My first attempt was maniulating rows and columns to get smaller squares with different colors. However, I couldnt fully comprehend how to control rows and columns.
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att1.jpg">
 
-My second attemt was more successful. I used chatgt to exlain certain concets such as a moving design. I was able to maniulate square size as well as adding a vertical line that would move left to right. Every cycle the line does it would change colors and the color of the squares.
-<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/StrResult.jpg">
-<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/StrResult.jpg">
+My second attempt was more successful. I used chatgpt to explain certain concets such as a moving design. I was able to maniulate square size as well as adding a vertical line that would move left to right. Every cycle the line does it would change colors and the color of the squares.
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att2.1.jpg">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att2.2.jpg">
 
-My third attemt consisted of trying a similar design to the start screen design. It roved more challenging and with little time I was not able to fulfil what I wanted to do. 
-<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/StrResult.jpg">
+My third attempt consisted of trying a similar design to the start screen design. It proved more challenging and with little time I was not able to fulfil what I wanted to do. 
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att3.jpg">
 
-On the final session I settled on building on what I had in the second attemt, which is my final VGA design.
+On the final session I settled on building on what I had in the second attempt, which is my final VGA design.
 
 ### **Code Adaptation**
-Briefly show how you changed the template code to display a different image. Demonstrate your understanding. Guideline: 1-2 short paragraphs.
+I combined both templates (color cycle and color stripes) and with the help of chatgt I was able to manipulate the code so that I control square size as well as changing color speed. 
+The counter is used to determine the timing of color changes. The counter[30:25] is used to speed up or slow down color changes by changing the bits of the counter. If I used counter[15:10], it uses lower bits so the color changes will be faster because they toggle more frequently. This applies vice versa for slower color change time. 
+So the following `always @*` block uses case statement to assign colors and change the colors based on their position (square_row, square_col) and color cycle. The %6 is to make sure that all 6 colors are dislayed. If I kee all the other variables as they were and change %6 to %10, some squares will be black (default) since theres only 6 colors. If it becomes less than the number of colors resent (%4) it will dislay only 4 colors since the colors are already predefined.
+The RGB values registration and VGAsync is the same as the given templates. The change in VGATop is adding the row and col parameters for my ColourStripes module (I did not change the name).
+
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att3.jpg">
+
+To manipulate square size, I divided row and col values according to the square size I desired.
+* For bigger squares, I divided the rows and col by a bigger number (Examle 60x60 ixels).
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att3.jpg">
+
+* For smaller squares, I imlemented more divisions thus a smaller number (Examle: divide by 10).
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att3.jpg">
+
+* The default square size divider I settled on was divide by 20.
+  The design I created changes colors deending on the counter values, in my case I chose counter[30:25].
+  <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att3.jpg">
+  <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att3.jpg">
 
 ### **Simulation**
 Show how you simulated your own design. Are there any things to note? Demonstrate your understanding. Add a screenshot. Guideline: 1-2 short paragraphs.
