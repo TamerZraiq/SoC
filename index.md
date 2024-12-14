@@ -106,19 +106,21 @@ The counter is used to determine the timing of color changes. The counter[30:25]
 So the following `always @*` block uses case statement to assign colors and change the colors based on their position (square_row, square_col) and color cycle. The %6 is to make sure that all 6 colors are dislayed. If I kee all the other variables as they were and change %6 to %10, some squares will be black (default) since theres only 6 colors. If it becomes less than the number of colors resent (%4) it will dislay only 4 colors since the colors are already predefined.
 The RGB values registration and VGAsync is the same as the given templates. The change in VGATop is adding the row and col parameters for my ColourStripes module (I did not change the name).
 
-<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att3.jpg">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/counter1.png">
 
 To manipulate square size, I divided row and col values according to the square size I desired.
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/square1.1.png">
+
 * For bigger squares, I divided the rows and col by a bigger number (Examle 60x60 ixels).
-<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att3.jpg">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att4.2.jpg">
 
 * For smaller squares, I imlemented more divisions thus a smaller number (Examle: divide by 10).
-<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att3.jpg">
+<img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att4.1.jpg">
 
 * The default square size divider I settled on was divide by 20.
   The design I created changes colors deending on the counter values, in my case I chose counter[30:25].
-  <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att3.jpg">
-  <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att3.jpg">
+  <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att4.3.1.jpg">
+  <img src="https://raw.githubusercontent.com/TamerZraiq/Soc/main/docs/assets/images/att4.3.2.jpg">
 
 ### **Simulation**
 Show how you simulated your own design. Are there any things to note? Demonstrate your understanding. Add a screenshot. Guideline: 1-2 short paragraphs.
